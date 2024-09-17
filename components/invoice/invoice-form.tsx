@@ -22,9 +22,9 @@ interface InvoiceData {
   address: string; // This should now be a province name
   items: Array<{ name: string; price: number }>;
   totalAmount: number;
-  parcelSize: string;
   shippingFee: number;
   paymentMethod: (typeof VALID_PAYMENT_METHODS)[number];
+  parcelSize: string;
 }
 
 const InvoiceForm = () => {
