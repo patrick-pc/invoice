@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface Item {
   name: string;
@@ -49,7 +50,11 @@ const ItemList: React.FC<ItemListProps> = ({
     });
   };
 
-  const handleNext = () => {
+  const handleSubmit = () => {
+    if (items.length === 0) {
+      toast.error("At least one item is required.");
+      return;
+    }
     updateInvoiceData({ items, totalAmount: calculateTotal() });
     onNext();
   };
@@ -87,7 +92,7 @@ const ItemList: React.FC<ItemListProps> = ({
         <Button variant="outline" onClick={onPrevious}>
           Previous
         </Button>
-        <Button onClick={handleNext}>Next</Button>
+        <Button onClick={handleSubmit}>Next</Button>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface BillingInfoProps {
   invoiceData: {
@@ -166,7 +167,11 @@ const BillingInfo: React.FC<BillingInfoProps> = ({
   const [name, setName] = useState(invoiceData.name);
   const [address, setAddress] = useState(invoiceData.address);
 
-  const handleNext = () => {
+  const handleSubmit = () => {
+    if (!name || !address) {
+      toast.error("Name and address are required.");
+      return;
+    }
     updateInvoiceData({ name, address });
     onNext();
   };
@@ -196,7 +201,7 @@ const BillingInfo: React.FC<BillingInfoProps> = ({
           </SelectContent>
         </Select>
       </div>
-      <Button onClick={handleNext}>Next</Button>
+      <Button onClick={handleSubmit}>Next</Button>
     </div>
   );
 };

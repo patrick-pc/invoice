@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-// import { useRouter } from "next/navigation";
 import BillingInfo from "./billing-info";
 import ItemList from "./item-list";
 import ShippingAndPayment from "./shipping-and-payment";
@@ -38,8 +37,6 @@ const InvoiceForm = () => {
     shippingFee: 0,
     paymentMethod: "",
   });
-
-  // const router = useRouter();
 
   const handleNext = () => {
     setStep(step + 1);

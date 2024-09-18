@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface ShippingAndPaymentProps {
   invoiceData: {
@@ -41,10 +42,17 @@ const ShippingAndPayment: React.FC<ShippingAndPaymentProps> = ({
   const handleShippingFeeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFee = parseFloat(e.target.value);
     setShippingFee(newFee || 0);
-    updateInvoiceData({ shippingFee: newFee || 0 });
   };
 
-  const handleNext = () => {
+  const handleSubmit = () => {
+    if (shippingFee === 0) {
+      toast.error("Shipping fee is required.");
+      return;
+    }
+    if (!paymentMethod) {
+      toast.error("Payment method is required.");
+      return;
+    }
     updateInvoiceData({ paymentMethod, shippingFee });
     onNext();
   };
@@ -90,7 +98,7 @@ const ShippingAndPayment: React.FC<ShippingAndPaymentProps> = ({
         <Button variant="outline" onClick={onPrevious}>
           Previous
         </Button>
-        <Button onClick={handleNext}>Next</Button>
+        <Button onClick={handleSubmit}>Next</Button>
       </div>
     </div>
   );
